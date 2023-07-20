@@ -5,6 +5,9 @@ const SimpleInput = (props) => {
   const [nameInput, setNameInput] = useState('');
   const [isTouched, setIsTouched] = useState(false);
 
+  const isValid = nameInput.trim() !== "";
+  const nameInputIsInvalid = !isValid && isTouched;
+
   const onChangeHandler = event => {
 
     setIsTouched(true);
@@ -26,23 +29,29 @@ const SimpleInput = (props) => {
 
   const onSubmitHandler = event => {
     event.preventDefault();
-    if(!nameInput || !isTouched) {
+    setIsTouched(true);
+    if(!isValid) {
       return
     }
     setNameInput('');
+    setIsTouched(false);
   };
+
+  const inputClass = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
+
 
   return (
     <form onSubmit={onSubmitHandler}>
-      <div className="form-control">
+      <div className={inputClass}>
         <label htmlFor='name'>Your Name</label>
         <input 
           type='text' 
           id='name'
+          value={nameInput}
           onChange={onChangeHandler}
           onBlur={onBlurHandler}
            />
-           <p>That is an unacceptable value.</p>
+           {nameInputIsInvalid && <p>That is an unacceptable value.</p> }
       </div>
       <div className="form-actions">
         <button>Submit</button>
