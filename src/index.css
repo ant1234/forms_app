@@ -58,6 +58,12 @@ body {
   flex-wrap: wrap;
 }
 
+.disabled {
+  background: #999;
+  color: #555;
+  cursor: not-allowed;
+}
+
 .control-group .form-control {
   min-width: 15rem;
   flex: 1;
